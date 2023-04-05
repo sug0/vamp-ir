@@ -482,6 +482,8 @@ impl<F: FieldExt + PrimeField> Halo2Module<F> {
         }
     }
 
+    // TODO: enforce clippy checks
+    #[allow(clippy::too_many_arguments)]
     fn make_gate(
         &self,
         a: Option<VariableId>,

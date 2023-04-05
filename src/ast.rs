@@ -21,6 +21,8 @@ pub struct Module {
 }
 
 impl Module {
+    // TODO: enforce clippy checks
+    #[allow(clippy::result_large_err)]
     pub fn parse(unparsed_file: &str) -> Result<Self, pest::error::Error<Rule>> {
         let pairs = VampirParser::parse(Rule::moduleItems, unparsed_file)?;
         let mut defs = vec![];

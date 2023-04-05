@@ -205,7 +205,7 @@ fn compile_plonk_cmd(
     .unwrap();
 
     println!("* Synthesizing arithmetic circuit...");
-    let mut circuit = PlonkModule::<BlsScalar, JubJubParameters>::new(module_3ac.clone());
+    let mut circuit = PlonkModule::<BlsScalar, JubJubParameters>::new(module_3ac);
     // Compile the circuit
     let (pk_p, vk) = circuit
         .compile::<PC>(&pp)

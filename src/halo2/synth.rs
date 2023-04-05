@@ -91,20 +91,20 @@ where
         }
         Expr::Negate(e) => -evaluate_expr(e, defs, assigns),
         Expr::Infix(InfixOp::Add, a, b) => {
-            evaluate_expr(&a, defs, assigns) + evaluate_expr(&b, defs, assigns)
+            evaluate_expr(a, defs, assigns) + evaluate_expr(b, defs, assigns)
         }
         Expr::Infix(InfixOp::Subtract, a, b) => {
-            evaluate_expr(&a, defs, assigns) - evaluate_expr(&b, defs, assigns)
+            evaluate_expr(a, defs, assigns) - evaluate_expr(b, defs, assigns)
         }
         Expr::Infix(InfixOp::Multiply, a, b) => {
-            evaluate_expr(&a, defs, assigns) * evaluate_expr(&b, defs, assigns)
+            evaluate_expr(a, defs, assigns) * evaluate_expr(b, defs, assigns)
         }
         Expr::Infix(InfixOp::Divide, a, b) => {
-            evaluate_expr(&a, defs, assigns) * evaluate_expr(&b, defs, assigns).invert().unwrap()
+            evaluate_expr(a, defs, assigns) * evaluate_expr(b, defs, assigns).invert().unwrap()
         }
         Expr::Infix(InfixOp::IntDivide, a, b) => {
-            let op1 = BigUint::from_bytes_le(evaluate_expr(&a, defs, assigns).to_repr().as_ref());
-            let op2 = BigUint::from_bytes_le(evaluate_expr(&b, defs, assigns).to_repr().as_ref());
+            let op1 = BigUint::from_bytes_le(evaluate_expr(a, defs, assigns).to_repr().as_ref());
+            let op2 = BigUint::from_bytes_le(evaluate_expr(b, defs, assigns).to_repr().as_ref());
             let bytes: Vec<u8> = (op1 / op2).to_bytes_le();
             let mut byte_array = [0u8; 64];
             let length = bytes.len();
@@ -116,8 +116,8 @@ where
             F::from_bytes_wide(&byte_array)
         }
         Expr::Infix(InfixOp::Modulo, a, b) => {
-            let op1 = BigUint::from_bytes_le(evaluate_expr(&a, defs, assigns).to_repr().as_ref());
-            let op2 = BigUint::from_bytes_le(evaluate_expr(&b, defs, assigns).to_repr().as_ref());
+            let op1 = BigUint::from_bytes_le(evaluate_expr(a, defs, assigns).to_repr().as_ref());
+            let op2 = BigUint::from_bytes_le(evaluate_expr(b, defs, assigns).to_repr().as_ref());
             let bytes: Vec<u8> = (op1 % op2).to_bytes_le();
             let mut byte_array = [0u8; 64];
             let length = bytes.len();
@@ -1087,9 +1087,9 @@ pub fn keygen(
     circuit: &Halo2Module<Fp>,
     params: &Params<EqAffine>,
 ) -> (ProvingKey<EqAffine>, VerifyingKey<EqAffine>) {
-    let vk = keygen_vk(&params, circuit).expect("keygen_vk should not fail");
+    let vk = keygen_vk(params, circuit).expect("keygen_vk should not fail");
     let vk_return = vk.clone();
-    let pk = keygen_pk(&params, vk, circuit).expect("keygen_pk should not fail");
+    let pk = keygen_pk(params, vk, circuit).expect("keygen_pk should not fail");
     (pk, vk_return)
 }
 

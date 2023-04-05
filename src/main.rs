@@ -60,7 +60,7 @@ where
 
     // Get the expected inputs from the circuit module
     let mut input_variables = HashMap::new();
-    collect_module_variables(&annotated, &mut input_variables);
+    collect_module_variables(annotated, &mut input_variables);
 
     // Defined variables should not be requested from user
     for def in &annotated.defs {
@@ -90,7 +90,7 @@ where
     <F as num_traits::Num>::FromStrRadixErr: std::fmt::Debug,
 {
     let mut input_variables = HashMap::new();
-    collect_module_variables(&annotated, &mut input_variables);
+    collect_module_variables(annotated, &mut input_variables);
     // Defined variables should not be requested from user
     for def in &annotated.defs {
         if let Pat::Variable(var) = &def.0 .0.v {

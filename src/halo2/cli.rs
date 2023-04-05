@@ -69,7 +69,7 @@ fn compile_halo2_cmd(Halo2Compile { source, output }: &Halo2Compile) {
     let module_3ac = compile(module, &PrimeFieldOps::<Fp>::default());
 
     println!("* Synthesizing arithmetic circuit...");
-    let circuit = Halo2Module::<Fp>::new(module_3ac.clone());
+    let circuit = Halo2Module::<Fp>::new(module_3ac);
     let params: Params<EqAffine> = Params::new(circuit.k);
     let mut circuit_file = File::create(output).expect("unable to create circuit file");
     HaloCircuitData { params, circuit }
